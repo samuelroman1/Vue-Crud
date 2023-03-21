@@ -12,11 +12,11 @@
 
 		<h3>Menu</h3>
 		<div class="menu">
-            <router-link to="/CreateUser" class="button">
+            <router-link to="/Listar" class="button">
 				<span class="material-icons">home</span>
 				<span class="text">Home</span>
 			</router-link>
-			<router-link to="/about" class="button">
+			<router-link to="/crear" class="button">
 				<span class="material-icons">description</span>
 				<span class="text">About</span>
 			</router-link>
@@ -25,7 +25,7 @@
 		<div class="flex"></div>
 		
 		<div class="menu">
-			<router-link to="/settings" class="button">
+			<router-link to="/Login" class="button">
 				<span class="material-icons">settings</span>
 				<span class="text">Settings</span>
 			</router-link>

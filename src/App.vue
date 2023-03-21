@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import Sideba from './components/Dashboard.vue'
+import Sidebar from './components/Dashboard.vue'
 </script>
 
 <style lang="scss">

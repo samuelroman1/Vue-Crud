@@ -1,5 +1,5 @@
 <script setup>
-import TheWelcome from '../Views/Login.vue'
+import TheWelcome from '../views/Login.vue'
 
 </script>
 

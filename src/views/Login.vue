@@ -21,7 +21,7 @@
       login() {
         console.log(this.email);
         console.log(this.password);
-        this.$router.push("/Dashboard")
+        this.$router.push("/Listar")
       }
     }
   };
