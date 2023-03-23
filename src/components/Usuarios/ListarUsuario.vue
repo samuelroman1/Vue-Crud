@@ -1,7 +1,7 @@
 <template>
 	<aside :class="`${is_expanded ? 'is-expanded' : ''}`">
 		<div class="logo">
-			<img :src="logoURL" alt="Vue" /> 
+			<img :src="logoURL" alt="Vue" />
 		</div>
 
 		<div class="menu-toggle-wrap">
@@ -12,7 +12,7 @@
 
 		<h3>Menu</h3>
 		<div class="menu">
-            <router-link to="/Listar" class="button">
+			<router-link to="/Listar" class="button">
 				<span class="material-icons">home</span>
 				<span class="text">ListarUsuarios</span>
 			</router-link>
@@ -23,7 +23,7 @@
 		</div>
 
 		<div class="flex"></div>
-		
+
 		<div class="menu">
 			<router-link to="/Login" class="button">
 				<span class="material-icons">settings</span>
@@ -31,48 +31,46 @@
 			</router-link>
 		</div>
 	</aside>
-  <div>
-      <div class="card">
-        <div class="card-header">Articulos</div>
-  
-        <div class="card_body">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>PkUsuario</th>
-                <th>User</th>
-                <th>Password</th>
-                <th>FechaRegistro</th>
-                <th>FkEmpleado</th>
-                <th>FkRol</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="Usuario in Usuarios" :key="Usuario.pkUsuario">
-                <td>{{ Usuario.pkUsuario }}</td>
-                <td>{{ Usuario.user }}</td>
-                <td>{{ Usuario.password }}</td>
-                <td>{{ Usuario.fechaRegistro }}</td>
-                <td>{{ Usuario.fkEmpleado }}</td>
-                <td>{{ Usuario.fkRol }}</td>
-                <td>
-                  <div class="btn-group" role="label" aria-label="">
-                    <!-- |<router-link :to="{name:'editar',param:{id:articulo.id}}" class="btn btn-info">Editar</router-link> | -->
-                    |<button
-                      type="button"
-                      v-on:click="borrarArticulo(Usuario.pkUsuario)"
-                      class="btn btn-danger"
-                    >
-                      Eliminar</button
-                    >|
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+	<div>
+		<div class="card">
+			<div class="card-header">Articulos
+			</div>
+			<div class="card_body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>PkUsuario</th>
+							<th>User</th>
+							<th>Password</th>
+							<th>FechaRegistro</th>
+							<th>FkEmpleado</th>
+							<th>FkRol</th>
+							|<router-link to="Crear" class="btn btn-info">CrearUsuario</router-link> |
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="Usuario in Usuarios" :key="Usuario.pkUsuario">
+							<td>{{ Usuario.pkUsuario }}</td>
+							<td>{{ Usuario.user }}</td>
+							<td>{{ Usuario.password }}</td>
+							<td>{{ Usuario.fechaRegistro }}</td>
+							<td>{{ Usuario.fkEmpleado }}</td>
+							<td>{{ Usuario.fkRol }}</td>
+							<td>
+								<div class="btn-group" role="label" aria-label=""> 
+									<button type="button" v-on:click="editar()" class="btn btn-info">
+										editar</button>
+									|<button type="button" v-on:click="borrarArticulo(Usuario.pkUsuario)"
+										class="btn btn-danger">
+										Eliminar</button>|
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </template>
 
 
@@ -90,36 +88,39 @@ const ToggleMenu = () => {
 <script>
 import axios from "axios";
 export default {
-  data() {
-    return {
-      Usuarios: [],
-    };
-  },
-  created: function () {
-    this.consultarArticulos();
-  },
-  methods: {
-    consultarArticulos() {
-      axios.get("https://localhost:7051/Usuario").then((result) => {
-        console.log(result.data.result);
-        this.Usuarios = result.data.result;
-      });
-    },
-    borrarArticulo() {
-		var enviar = {
-			"pkUsuario" : this.usuarios.pkUsuario,
+	data() {
+		return {
+			Usuarios: [],
+  		    Empleado: [],
+   		    nombresempleados: [{}],
+            smg: "",
 		};
-		axios.delete("https://localhost:7051/Usuario")
-		.then(result =>{
-			console.log(result.data.result)
-		})
-    //   console.log(id);
+	},
+	created: function () {
+		this.consultarArticulos();
+	},
+	methods: {
+		consultarArticulos() {
+			axios.get("https://localhost:7051/Usuario").then((result) => {
+				console.log(result.data.result);
+				this.Usuarios = result.data.result;
+			});
+		},
+		editar() {
+			window.location.href = "/Editar";
+		},
+		borrarArticulo(id) {
+			var pregunta = window.confirm('Esta se seguro de eliminar este registro?');
 
-    //   axios.delete(""https://localhost:7051/Usuario" + id);
+			if (pregunta === true) {
+				axios.delete("https://localhost:7051/Usuario/" + id);
+				window.location.href = "listar";
 
-    //   window.location.href = "/Listar";
-    },
-  },
+			} else {
+
+			}
+		},
+	},
 };
 </script>
 
@@ -161,12 +162,13 @@ aside {
 
 		.menu-toggle {
 			transition: 0.2s ease-in-out;
+
 			.material-icons {
 				font-size: 2rem;
 				color: var(--light);
 				transition: 0.2s ease-out;
 			}
-			
+
 			&:hover {
 				.material-icons {
 					color: var(--primary);
@@ -176,7 +178,8 @@ aside {
 		}
 	}
 
-	h3, .button .text {
+	h3,
+	.button .text {
 		opacity: 0;
 		transition: opacity 0.3s ease-in-out;
 	}
@@ -204,6 +207,7 @@ aside {
 				color: var(--light);
 				transition: 0.2s ease-in-out;
 			}
+
 			.text {
 				color: var(--light);
 				transition: 0.2s ease-in-out;
@@ -212,7 +216,8 @@ aside {
 			&:hover {
 				background-color: var(--dark-alt);
 
-				.material-icons, .text {
+				.material-icons,
+				.text {
 					color: var(--primary);
 				}
 			}
@@ -221,7 +226,8 @@ aside {
 				background-color: var(--dark-alt);
 				border-right: 5px solid var(--primary);
 
-				.material-icons, .text {
+				.material-icons,
+				.text {
 					color: var(--primary);
 				}
 			}
@@ -243,13 +249,14 @@ aside {
 
 		.menu-toggle-wrap {
 			top: -3rem;
-			
+
 			.menu-toggle {
 				transform: rotate(-180deg);
 			}
 		}
 
-		h3, .button .text {
+		h3,
+		.button .text {
 			opacity: 1;
 		}
 

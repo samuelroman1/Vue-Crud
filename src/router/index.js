@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
 import Login from '../views/AboutView.vue'
 import Dashboard from '../components/Dashboard.vue'
-import ListarUsuario from '../components/ListarUsuario.vue'
-import CrearUsuario from '../components/CrearUsuario.vue'
+import ListarUsuario from '../components/Usuarios/ListarUsuario.vue'
+import CrearUsuario from '../components/Usuarios/CrearUsuario.vue'
 
 const router = createRouter({
 	history: createWebHistory(),
@@ -35,6 +35,11 @@ const router = createRouter({
       path: '/Crear',
       name: 'Crear',
       component: CrearUsuario
+    },
+    {
+      path: '/Editar',
+      name: 'Editar',
+      component: () => import('../components/Usuarios/EditarUsuarios.vue')
     },
 	],
 })
