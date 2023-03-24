@@ -13,12 +13,32 @@
 		<h3>Menu</h3>
 		<div class="menu">
 			<router-link to="/Listar" class="button">
-				<span class="material-icons">home</span>
-				<span class="text">ListarUsuarios</span>
+				<span class="material-icons">person</span>
+				<span class="text">Usuario</span>
 			</router-link>
-			<router-link to="/Crear" class="button">
-				<span class="material-icons">description</span>
-				<span class="text">CrearUsuario</span>
+			<router-link to="/ListarCliente" class="button">
+				<span class="material-icons">hail</span>
+				<span class="text">Cliente</span>
+			</router-link>
+			<router-link to="/listarDepartamento" class="button">
+				<span class="material-icons">domain</span>
+				<span class="text">Departamento</span>
+			</router-link>
+			<router-link to="/listarPuesto" class="button">
+				<span class="material-icons">engineering</span>
+				<span class="text">Puesto</span>
+			</router-link>
+			<router-link to="/listarRoles" class="button">
+				<span class="material-icons">work</span>
+				<span class="text">Rol</span>
+			</router-link>
+			<router-link to="/listarFacturas" class="button">
+				<span class="material-icons">receipt</span>
+				<span class="text">Facturas</span>
+			</router-link>
+			<router-link to="/ListarCliente" class="button">
+				<span class="material-icons">badge</span>
+				<span class="text">Empleado</span>
 			</router-link>
 		</div>
 
@@ -33,7 +53,7 @@
 	</aside>
 	<div>
 		<div class="card">
-			<div class="card-header">Articulos
+			<div class="card-header">Usuarios
 			</div>
 			<div class="card_body">
 				<table class="table">
@@ -45,7 +65,7 @@
 							<th>FechaRegistro</th>
 							<th>FkEmpleado</th>
 							<th>FkRol</th>
-							|<router-link to="Crear" class="btn btn-info">CrearUsuario</router-link> |
+
 						</tr>
 					</thead>
 					<tbody>
@@ -58,8 +78,7 @@
 							<td>{{ Usuario.fkRol }}</td>
 							<td>
 								<div class="btn-group" role="label" aria-label=""> 
-									<button type="button" v-on:click="editar()" class="btn btn-info">
-										editar</button>
+
 									|<button type="button" v-on:click="borrarArticulo(Usuario.pkUsuario)"
 										class="btn btn-danger">
 										Eliminar</button>|
@@ -68,6 +87,9 @@
 						</tr>
 					</tbody>
 				</table>
+				|<router-link to="Crear" class="btn btn-info">CrearUsuario</router-link> |
+							<button type="button" v-on:click="editar()" class="btn btn-info">
+										Editar</button>
 			</div>
 		</div>
 	</div>

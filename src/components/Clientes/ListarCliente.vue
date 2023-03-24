@@ -1,7 +1,7 @@
 <template>
 	<aside :class="`${is_expanded ? 'is-expanded' : ''}`">
 		<div class="logo">
-			<img :src="logoURL" alt="Vue" /> 
+			<img :src="logoURL" alt="Vue" />
 		</div>
 
 		<div class="menu-toggle-wrap">
@@ -43,7 +43,7 @@
 		</div>
 
 		<div class="flex"></div>
-		
+
 		<div class="menu">
 			<router-link to="/Login" class="button">
 				<span class="material-icons">settings</span>
@@ -51,69 +51,48 @@
 			</router-link>
 		</div>
 	</aside>
-  <div class="container-fluid">
-      <div class="card">
-        <div class="card-header">Agregar Usuario</div>
-        <div class="card-body">
-          <form v-on:submit.prevent="formulario">
-            <div class="row">
-              <div class="col">
-  
-                <div class="form-group">
-                  <label for="user">user:</label>
-                  <input type="text" class="form-control" name="user" aria-describedby="helpId" id="user"
-                    placeholder="usuario" v-model="Usuarios.user" />
-                  <small id="helpId" class="form-text" text-muted>Ingresa tu correo de usuario</small>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group">
-                  <label for="password">Password:</label>
-                  <input type="text" class="form-control" name="password" id="password" aria-describedby="helpId"
-                    placeholder="password" v-model="Usuarios.password" />
-                  <small id="helpId" class="form-text" text-muted>Ingresa tu contraseña</small>
-                </div>
-              </div>
-  
-            </div>
-            <br>
-            <div class="row">
-              <div class="col">
-  
-                <div class="form-group">
-                  <label for="fkEmpleado">fkEmpleado:</label>
-                  <input type="number" class="form-control" name="fkEmpleado" id="fkEmpleado" aria-describedby="helpId"
-                    placeholder="fkEmpleado" v-model="Usuarios.fkEmpleado" />
-                </div>
-              </div>
-              <div class="col">
-  
-                <div class="form-group">
-                  <label for="fkRol">fkRol:</label>
-                  <input type="number" class="form-control" name="fkRol" id="precio" aria-describedby="helpId"
-                    placeholder="fkRol" v-model="Usuarios.fkRol" />
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="btn-group" role="group" id="botonesopcion">
-                |<button type="submit" class="btn btn-outline-primary">Agregar</button>|
-                |<router-link :to="{ name: 'listar' }" class="btn btn-outline-danger">Cancelar</router-link>|
-              </div>
-              <router-link :to="{ name: 'listar' }" class="btn btn-outline-primary" id="finaliza"
-                style="display: none;">Finalizar</router-link>
-            </div>
-            <br>
-            <div class="row">
-              <div id="alert" style="display:none;" class="alert alert-success" role="alert">
-                {{ smg }}
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+	<div>
+		<div class="card">
+			<div class="card-header">Clientes
+			</div>
+			<div class="card_body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Pkcliente</th>
+							<th>Nombre</th>
+							<th>Apellidos</th>
+							<th>Telefono</th>
+							<th>Email</th>
+							<th>Direccion</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="Cliente in Clientes" :key="Cliente.pkCliente">
+							<td>{{ Cliente.pkCliente }}</td>
+							<td>{{ Cliente.nombre }}</td>
+							<td>{{ Cliente.apellidos }}</td>
+							<td>{{ Cliente.telefono }}</td>
+							<td>{{ Cliente.email }}</td>
+							<td>{{ Cliente.direccion }}</td>
+							<td>
+								<div class="btn-group" role="label" aria-label=""> 
+
+									|<button type="button" v-on:click="borrarCliente(Cliente.pkCliente)"
+										class="btn btn-danger">
+										Eliminar</button>|
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				|<router-link to="CrearCliente" class="btn btn-info">CrearCliente</router-link> |
+							<button type="button" v-on:click="editarCliente()" class="btn btn-info">
+										EditarCliente</button>
+			</div>
+		</div>
+	</div>
 </template>
 
 
@@ -129,49 +108,43 @@ const ToggleMenu = () => {
 </script>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
+	data() {
+		return {
+			Clientes: [],
+  		    Empleado: [],
+   		    nombresempleados: [{}],
+            smg: "",
+		};
+	},
+	created: function () {
+		this.consultarArticulos();
+	},
+	methods: {
+		consultarArticulos() {
+			axios.get("https://localhost:7051/Cliente").then((result) => {
+				console.log(result.data.result);
+				this.Clientes = result.data.result;
+			});
+		},
+		editarCliente() {
+			window.location.href = "/EditarClientes";
+		},
+		borrarCliente(id) {
+			var pregunta = window.confirm('Esta se seguro de eliminar este registro?');
 
-  data() {
-    return {
-      Usuarios: {},
-      smg: "",
-    };
-  },
-  methods: {
-    formulario() {
-      const tiempoTranscurrido = Date.now();
-      const hoy = new Date(tiempoTranscurrido);
-      var cuerpo = {
-        user: this.Usuarios.user,
-        password: this.Usuarios.password,
-        fechaRegistro: hoy.toISOString(),
-        fkEmpleado: this.Usuarios.fkEmpleado,
-        fkRol: this.Usuarios.fkRol
-      };
+			if (pregunta === true) {
+				axios.delete("https://localhost:7051/Cliente/" + id);
+				window.location.href = "listarCliente";
 
-      axios.post('https://localhost:7051/Usuario', cuerpo).then((result) => {
+			} else {
 
-        if (result.status == 200) {
-          document.getElementById("alert").style.display = "block";
-          document.getElementById('botonesopcion').style.display = "none";
-          this.smg = "agregado exitosamente :D/";
-          document.getElementById('finaliza').style.display = "block";
-          console.log(result);
-        }
-        // window.location.href = "dashboard";
-
-      })
-    }
-  }
-}
+			}
+		},
+	},
+};
 </script>
-
-<style scoped>
-label {
-  font-weight: bold;
-}
-</style>
 
 <style lang="scss" scoped>
 aside {
@@ -211,12 +184,13 @@ aside {
 
 		.menu-toggle {
 			transition: 0.2s ease-in-out;
+
 			.material-icons {
 				font-size: 2rem;
 				color: var(--light);
 				transition: 0.2s ease-out;
 			}
-			
+
 			&:hover {
 				.material-icons {
 					color: var(--primary);
@@ -226,7 +200,8 @@ aside {
 		}
 	}
 
-	h3, .button .text {
+	h3,
+	.button .text {
 		opacity: 0;
 		transition: opacity 0.3s ease-in-out;
 	}
@@ -254,6 +229,7 @@ aside {
 				color: var(--light);
 				transition: 0.2s ease-in-out;
 			}
+
 			.text {
 				color: var(--light);
 				transition: 0.2s ease-in-out;
@@ -262,7 +238,8 @@ aside {
 			&:hover {
 				background-color: var(--dark-alt);
 
-				.material-icons, .text {
+				.material-icons,
+				.text {
 					color: var(--primary);
 				}
 			}
@@ -271,7 +248,8 @@ aside {
 				background-color: var(--dark-alt);
 				border-right: 5px solid var(--primary);
 
-				.material-icons, .text {
+				.material-icons,
+				.text {
 					color: var(--primary);
 				}
 			}
@@ -293,13 +271,14 @@ aside {
 
 		.menu-toggle-wrap {
 			top: -3rem;
-			
+
 			.menu-toggle {
 				transform: rotate(-180deg);
 			}
 		}
 
-		h3, .button .text {
+		h3,
+		.button .text {
 			opacity: 1;
 		}
 

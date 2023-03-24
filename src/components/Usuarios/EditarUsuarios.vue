@@ -12,13 +12,33 @@
 
 		<h3>Menu</h3>
 		<div class="menu">
-            <router-link to="/Listar" class="button">
-				<span class="material-icons">home</span>
-				<span class="text">Home</span>
+			<router-link to="/Listar" class="button">
+				<span class="material-icons">person</span>
+				<span class="text">Usuario</span>
 			</router-link>
-			<router-link to="/crear" class="button">
-				<span class="material-icons">description</span>
-				<span class="text">About</span>
+			<router-link to="/ListarCliente" class="button">
+				<span class="material-icons">hail</span>
+				<span class="text">Cliente</span>
+			</router-link>
+			<router-link to="/listarDepartamento" class="button">
+				<span class="material-icons">domain</span>
+				<span class="text">Departamento</span>
+			</router-link>
+			<router-link to="/listarPuesto" class="button">
+				<span class="material-icons">engineering</span>
+				<span class="text">Puesto</span>
+			</router-link>
+			<router-link to="/listarRoles" class="button">
+				<span class="material-icons">work</span>
+				<span class="text">Rol</span>
+			</router-link>
+			<router-link to="/listarFacturas" class="button">
+				<span class="material-icons">receipt</span>
+				<span class="text">Facturas</span>
+			</router-link>
+			<router-link to="/ListarCliente" class="button">
+				<span class="material-icons">badge</span>
+				<span class="text">Empleado</span>
 			</router-link>
 		</div>
 
@@ -186,10 +206,10 @@ export default {
                         document.getElementById('alert2').style.display = "none";
 
 
-                        document.getElementById('user').value = this.Usuarios[0].user;
-                        document.getElementById('password').value = this.Usuarios[0].password;
-                        document.getElementById('fkEmpleado').value = this.Usuarios[0].fkEmpleado;
-                        document.getElementById('fkRol').value = this.Usuarios[0].fkRol;
+                        document.getElementById('user').value = this.Usuarios.user;
+                        document.getElementById('password').value = this.Usuarios.password;
+                        document.getElementById('fkEmpleado').value = this.Usuarios.fkEmpleado;
+                        document.getElementById('fkRol').value = this.Usuarios.fkRol;
 
                     }
                 })
