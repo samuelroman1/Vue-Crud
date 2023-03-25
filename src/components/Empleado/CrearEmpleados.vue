@@ -53,16 +53,16 @@
 	</aside>
   <div class="container-fluid">
       <div class="card">
-        <div class="card-header">Agregar Factura</div>
+        <div class="card-header">Agregar Empleado</div>
         <div class="card-body">
           <form v-on:submit.prevent="formulario">
             <div class="row">
               <div class="col">
   
                 <div class="form-group">
-                  <label for="razonSocial">RazonSocial:</label>
-                  <input type="text" class="form-control" name="razonSocial" aria-describedby="helpId" id="razonSocial"
-                    placeholder="razonSocial" v-model="Facturas.razonSocial" />
+                  <label for="nombre">Nombre:</label>
+                  <input type="text" class="form-control" name="nombre" aria-describedby="helpId" id="nombre"
+                    placeholder="nombre" v-model="Empleados.nombre" />
                   <small id="helpId" class="form-text" text-muted>Ingresa tu correo de usuario</small>
                 </div>
               </div>
@@ -72,17 +72,33 @@
               <div class="col">
   
                 <div class="form-group">
-                  <label for="rfc">RFC:</label>
-                  <input type="text" class="form-control" name="rfc" id="rfc" aria-describedby="helpId"
-                    placeholder="rfc" v-model="Facturas.rfc" />
+                  <label for="apellidos">Apellidos:</label>
+                  <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="helpId"
+                    placeholder="apellidos" v-model="Empleados.apellidos" />
+
+                </div>
+                <div class="form-group">
+                  <label for="dirreccion">Direccion:</label>
+                  <input type="text" class="form-control" name="dirreccion" id="dirreccion" aria-describedby="helpId"
+                    placeholder="dirreccion" v-model="Empleados.dirreccion" />
+                </div>
+                <div class="form-group">
+                  <label for="ciudad">Ciudad:</label>
+                  <input type="text" class="form-control" name="ciudad" id="ciudad" aria-describedby="helpId"
+                    placeholder="ciudad" v-model="Empleados.ciudad" />
                 </div>
               </div>
               <div class="col">
   
                 <div class="form-group">
-                  <label for="fkCliente">fkCliente:</label>
-                  <input type="number" class="form-control" name="fkCliente" id="fkCliente" aria-describedby="helpId"
-                    placeholder="fkCliente" v-model="Facturas.fkCliente" />
+                  <label for="fkPuesto">FkPuesto:</label>
+                  <input type="text" class="form-control" name="fkPuesto" id="fkPuesto" aria-describedby="helpId"
+                    placeholder="fkPuesto" v-model="Empleados.fkPuesto" />
+                </div>
+                <div class="form-group">
+                  <label for="fkDepartamento">FkDepartamento:</label>
+                  <input type="text" class="form-control" name="fkDepartamento" id="fkDepartamento" aria-describedby="helpId"
+                    placeholder="fkDepartamento" v-model="Empleados.fkDepartamento" />
                 </div>
               </div>
             </div>
@@ -90,9 +106,9 @@
             <div class="row">
               <div class="btn-group" role="group" id="botonesopcion">
                 |<button type="submit" class="btn btn-outline-primary">Agregar</button>|
-                |<router-link :to="{ name: 'listarFacturas' }" class="btn btn-outline-danger">Cancelar</router-link>|
+                |<router-link :to="{ name: 'listarEmpleados' }" class="btn btn-outline-danger">Cancelar</router-link>|
               </div>
-              <router-link :to="{ name: 'listarFacturas' }" class="btn btn-outline-primary" id="finaliza"
+              <router-link :to="{ name: 'listarEmpleados' }" class="btn btn-outline-primary" id="finaliza"
                 style="display: none;">Finalizar</router-link>
             </div>
             <br>
@@ -125,22 +141,22 @@ export default {
 
   data() {
     return {
-      Facturas: {},
+      Empleados: {},
       smg: "",
     };
   },
   methods: {
     formulario() {
-      const tiempoTranscurrido = Date.now();
-      const hoy = new Date(tiempoTranscurrido);
       var cuerpo = {
-        razonSocial: this.Facturas.razonSocial,
-        fecha: hoy.toISOString(),
-        rfc: this.Facturas.rfc,
-        fkCliente: this.Facturas.fkCliente,
+        nombre: this.Empleados.nombre,
+        apellidos : this.Empleados.apellidos,
+        dirreccion : this.Empleados.dirreccion,
+        ciudad : this.Empleados.ciudad,
+        fkPuesto: this.Empleados.fkPuesto,
+        fkDepartamento: this.Empleados.fkDepartamento,
       };
 
-      axios.post('https://localhost:7051/Factura', cuerpo).then((result) => {
+      axios.post('https://localhost:7051/Empleado', cuerpo).then((result) => {
 
         if (result.status == 200) {
           document.getElementById("alert").style.display = "block";

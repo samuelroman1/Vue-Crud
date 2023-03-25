@@ -53,36 +53,38 @@
 	</aside>
 	<div>
 		<div class="card">
-			<div class="card-header">Clientes
+			<div class="card-header">Empleados
 			</div>
 			<div class="card_body">
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Pkcliente</th>
+							<th>PkEmpleado</th>
 							<th>Nombre</th>
 							<th>Apellidos</th>
-							<th>Telefono</th>
-							<th>Email</th>
 							<th>Direccion</th>
+							<th>Ciudad</th>
+                            <th>FkPuesto</th>
+                            <th>FkDepartamento</th>
+							|<router-link to="CrearEmpleados" class="btn btn-info">CrearEmpleados</router-link> |
+							<button type="button" v-on:click="editarEmpleados()" class="btn btn-warning">
+										EditarFactura</button>
 
-							|<router-link to="CrearCliente" class="btn btn-info">CrearCliente</router-link> |
-							<button type="button" v-on:click="editarCliente()" class="btn btn-warning">
-										EditarCliente</button>
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="Cliente in Clientes" :key="Cliente.pkCliente">
-							<td>{{ Cliente.pkCliente }}</td>
-							<td>{{ Cliente.nombre }}</td>
-							<td>{{ Cliente.apellidos }}</td>
-							<td>{{ Cliente.telefono }}</td>
-							<td>{{ Cliente.email }}</td>
-							<td>{{ Cliente.direccion }}</td>
+						<tr v-for="Empleado in Empleados" :key="Empleado.pkEmpleado">
+							<td>{{ Empleado.pkEmpleado }}</td>
+							<td>{{ Empleado.nombre }}</td>
+							<td>{{ Empleado.apellidos }}</td>
+							<td>{{ Empleado.dirreccion }}</td>
+							<td>{{ Empleado.ciudad }}</td>
+                            <td>{{ Empleado.fkPuesto }}</td>
+                            <td>{{ Empleado.fkDepartamento }}</td>
 							<td>
 								<div class="btn-group" role="label" aria-label=""> 
 
-									|<button type="button" v-on:click="borrarCliente(Cliente.pkCliente)"
+									|<button type="button" v-on:click="borraDepartamento(Empleado.pkEmpleado)"
 										class="btn btn-danger">
 										Eliminar</button>|
 								</div>
@@ -90,6 +92,7 @@
 						</tr>
 					</tbody>
 				</table>
+
 			</div>
 		</div>
 	</div>
@@ -112,9 +115,7 @@ import axios from "axios";
 export default {
 	data() {
 		return {
-			Clientes: [],
-  		    Empleado: [],
-   		    nombresempleados: [{}],
+			Empleados: [],
             smg: "",
 		};
 	},
@@ -123,25 +124,25 @@ export default {
 	},
 	methods: {
 		consultarArticulos() {
-			axios.get("https://localhost:7051/Cliente").then((result) => {
+			axios.get("https://localhost:7051/Empleado").then((result) => {
 				console.log(result.data.result);
-				this.Clientes = result.data.result;
+				this.Empleados = result.data.result;
 			});
 		},
-		editarCliente() {
-			window.location.href = "/EditarClientes";
-		},
-		borrarCliente(id) {
-			var pregunta = window.confirm('Esta se seguro de eliminar este registro?');
+        editarEmpleados() {
+            window.location.href = "/EditarEmpleados";
+        },
+        borrarEmpleados(id) {
+            var pregunta = window.confirm('Esta se seguro de eliminar este registro?');
 
-			if (pregunta === true) {
-				axios.delete("https://localhost:7051/Cliente/" + id);
-				window.location.href = "listarCliente";
+            if (pregunta === true) {
+                axios.delete("https://localhost:7051/Factura/" + id);
+                window.location.href = "listarEmpleados";
 
-			} else {
+            } else {
 
-			}
-		},
+            }
+        },
 	},
 };
 </script>

@@ -36,7 +36,7 @@
 				<span class="material-icons">receipt</span>
 				<span class="text">Facturas</span>
 			</router-link>
-			<router-link to="/ListarCliente" class="button">
+			<router-link to="/listarEmpleados" class="button">
 				<span class="material-icons">badge</span>
 				<span class="text">Empleado</span>
 			</router-link>
@@ -45,9 +45,9 @@
 		<div class="flex"></div>
 		
 		<div class="menu">
-			<router-link to="/Login" class="button">
-				<span class="material-icons">settings</span>
-				<span class="text">Settings</span>
+			<router-link to="/" class="button">
+				<span class="material-icons">logout</span>
+				<span class="text">Salir</span>
 			</router-link>
 		</div>
 	</aside>
@@ -168,12 +168,16 @@ export default {
 </script>
 
 <style scoped>
+
 label {
   font-weight: bold;
 }
 </style>
 
 <style lang="scss" scoped>
+.card{
+	margin:70px;
+}
 aside {
 	display: flex;
 	flex-direction: column;

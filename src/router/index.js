@@ -14,6 +14,8 @@ import ListarRoles from '../components/Rol/ListarRoles.vue'
 import CrearRoles from '../components/Rol/CrearRoles.vue'
 import ListarFacturas from '../components/Factura/ListarFacturas.vue'
 import CrearFacturas from '../components/Factura/CrearFacturas.vue'
+import ListarEmpleados from '../components/Empleado/ListarEmpleados.vue'
+import CrearEmpleados from '../components/Empleado/CrearEmpleados.vue'
 
 const router = createRouter({
 	history: createWebHistory(),
@@ -125,6 +127,21 @@ const router = createRouter({
       path: '/EditarFacturas',
       name: 'EditarFacturas',
       component: () => import('../components/Factura/EditarFacturas.vue')
+    },
+    {
+      path: '/listarEmpleados',
+      name: 'listarEmpleados',
+      component: ListarEmpleados
+    },
+    {
+      path: '/CrearEmpleados',
+      name: 'CrearEmpleados',
+      component: CrearEmpleados
+    },
+    {
+      path: '/EditarEmpleados',
+      name: 'EditarEmpleados',
+      component: () => import('../components/Empleado/EditarEmpleados.vue')
     },
 	],
 })
