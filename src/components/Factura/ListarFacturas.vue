@@ -76,7 +76,7 @@
 							<td>{{ Factura.razonSocial }}</td>
 							<td>{{ Factura.fecha }}</td>
 							<td>{{ Factura.rfc }}</td>
-							<td>{{ Factura.fkCliente }}</td>
+							<td>{{ Factura.cliente.nombre }}</td>
 							<td>
 								<div class="btn-group" role="label" aria-label=""> 
 
@@ -120,7 +120,7 @@ export default {
 	},
 	methods: {
 		consultarArticulos() {
-			axios.get("https://localhost:7051/Factura").then((result) => {
+			axios.get("https://localhost:7051/Factura/multi").then((result) => {
 				console.log(result.data.result);
 				this.Facturas = result.data.result;
 			});

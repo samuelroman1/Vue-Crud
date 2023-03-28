@@ -66,9 +66,9 @@
 							<th>Ciudad</th>
                             <th>FkPuesto</th>
                             <th>FkDepartamento</th>
-							|<router-link to="CrearEmpleados" class="btn btn-info">CrearEmpleados</router-link> |
+							|<router-link to="CrearEmpleados" class="btn btn-info">CrearEmpleado</router-link> |
 							<button type="button" v-on:click="editarEmpleados()" class="btn btn-warning">
-										EditarFactura</button>
+										EditarEmpleado</button>
 
 						</tr>
 					</thead>
@@ -79,8 +79,8 @@
 							<td>{{ Empleado.apellidos }}</td>
 							<td>{{ Empleado.dirreccion }}</td>
 							<td>{{ Empleado.ciudad }}</td>
-                            <td>{{ Empleado.fkPuesto }}</td>
-                            <td>{{ Empleado.fkDepartamento }}</td>
+                            <td>{{ Empleado.puesto.nombre }}</td>
+                            <td>{{ Empleado.departamento.nombre }}</td>
 							<td>
 								<div class="btn-group" role="label" aria-label=""> 
 
@@ -124,7 +124,7 @@ export default {
 	},
 	methods: {
 		consultarArticulos() {
-			axios.get("https://localhost:7051/Empleado").then((result) => {
+			axios.get("https://localhost:7051/Empleado/multi").then((result) => {
 				console.log(result.data.result);
 				this.Empleados = result.data.result;
 			});

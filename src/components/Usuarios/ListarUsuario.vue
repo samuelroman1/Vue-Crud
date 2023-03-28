@@ -76,8 +76,8 @@
 							<td>{{ Usuario.user }}</td>
 							<td>{{ Usuario.password }}</td>
 							<td>{{ Usuario.fechaRegistro }}</td>
-							<td>{{ Usuario.fkEmpleado }}</td>
-							<td>{{ Usuario.fkRol }}</td>
+							<td>{{ Usuario.empleado.nombre }}</td>
+							<td>{{ Usuario.rol.nombre }}</td>
 							<td>
 								<div class="btn-group" role="label" aria-label=""> 
 
@@ -123,7 +123,7 @@ export default {
 	},
 	methods: {
 		consultarArticulos() {
-			axios.get("https://localhost:7051/Usuario").then((result) => {
+			axios.get("https://localhost:7051/Usuario/multi").then((result) => {
 				console.log(result.data.result);
 				this.Usuarios = result.data.result;
 			});
