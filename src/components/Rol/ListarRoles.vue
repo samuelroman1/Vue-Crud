@@ -54,6 +54,9 @@
 	<div>
 		<div class="card">
 			<div class="card-header">Roles
+				|<router-link to="CrearRoles" class="btn btn-success">CrearRol</router-link> |
+							<button type="button" v-on:click="editarRol()" class="btn btn-warning">
+										EditarRol</button>
 			</div>
 			<div class="card_body">
 				<table class="table">
@@ -62,9 +65,8 @@
 						<tr>
 							<th>PkRol</th>
 							<th>Nombre</th>
-							|<router-link to="CrearRoles" class="btn btn-info">CrearRol</router-link> |
-							<button type="button" v-on:click="editarRol()" class="btn btn-warning">
-										EditarRol</button>
+
+
 						</tr>
 					</thead>
 					<tbody>
@@ -138,6 +140,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.btn-success{
+	margin-left: 60px;
+}
 .card{
 	margin:70px;
 }

@@ -92,13 +92,15 @@
   
                 <div class="form-group">
                   <label for="fkPuesto">FkPuesto:</label>
-                  <input type="text" class="form-control" name="fkPuesto" id="fkPuesto" aria-describedby="helpId"
-                    placeholder="fkPuesto" v-model="Empleados.fkPuesto" />
+                  <select  class="form-control" name="puesto" id="puesto" v-model="Empleados.fkPuesto">
+				  <option v-for="puesto in Puestos" :value="puesto.pkpuesto" :key="puesto.pkpuesto">{{puesto.nombre}}</option>
+				  </select>
                 </div>
                 <div class="form-group">
                   <label for="fkDepartamento">FkDepartamento:</label>
-                  <input type="text" class="form-control" name="fkDepartamento" id="fkDepartamento" aria-describedby="helpId"
-                    placeholder="fkDepartamento" v-model="Empleados.fkDepartamento" />
+                  <select  class="form-control" name="departamento" id="departamento" v-model="Empleados.fkDepartamento">
+				  <option v-for="departamento in Departamentos" :value="departamento.pkDepartamento" :key="departamento.pkDepartamento">{{departamento.nombre}}</option>
+				  </select>
                 </div>
               </div>
             </div>
@@ -143,7 +145,12 @@ export default {
     return {
       Empleados: {},
       smg: "",
+	  Puestos:[],
+	  Departamentos:[]
     };
+  },
+  created:function(){
+	this.Consultas();
   },
   methods: {
     formulario() {
@@ -168,7 +175,17 @@ export default {
         // window.location.href = "dashboard";
 
       })
-    }
+    },
+	Consultas(){
+		axios.get("https://localhost:7051/Puesto").then((result) => {
+				console.log(result.data.result);
+				this.Puestos = result.data.result;
+			});
+			axios.get("https://localhost:7051/Departamento").then((result) => {
+				console.log(result.data.result);
+				this.Departamentos = result.data.result;
+			});
+	}
   }
 }
 </script>

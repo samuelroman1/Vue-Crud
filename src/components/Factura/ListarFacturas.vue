@@ -54,6 +54,9 @@
 	<div>
 		<div class="card">
 			<div class="card-header">Facturas
+				|<router-link to="crearFacturas" class="btn btn-success">CrearFactura</router-link> |
+							<button type="button" v-on:click="editarFactura()" class="btn btn-warning">
+										EditarFactura</button>
 			</div>
 			<div class="card_body">
 				<table class="table">
@@ -64,9 +67,7 @@
 							<th>Fecha</th>
 							<th>RFC</th>
 							<th>FkCliente</th>
-							|<router-link to="crearFacturas" class="btn btn-info">CrearFactura</router-link> |
-							<button type="button" v-on:click="editarFactura()" class="btn btn-warning">
-										EditarFactura</button>
+
 
 						</tr>
 					</thead>
@@ -144,6 +145,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.btn-success{
+	margin-left: 600px;
+}
 .card{
 	margin:70px;
 }

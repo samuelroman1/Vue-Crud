@@ -54,6 +54,9 @@
 	<div>
 		<div class="card">
 			<div class="card-header">Usuarios
+				<router-link to="Crear" class="btn btn-success">CrearUsuario</router-link> |
+							<button type="button" v-on:click="editar()" class="btn btn-warning">
+										Editar</button>
 			</div>
 			<div class="card_body">
 				<table class="table">
@@ -65,9 +68,6 @@
 							<th>FechaRegistro</th>
 							<th>FkEmpleado</th>
 							<th>FkRol</th>
-							|<router-link to="Crear" class="btn btn-info">CrearUsuario</router-link> |
-							<button type="button" v-on:click="editar()" class="btn btn-warning">
-										Editar</button>
 						</tr>
 					</thead>
 					<tbody>
@@ -148,7 +148,7 @@ export default {
 
 <style lang="scss" scoped>
 .btn-success {
-	align-items: flex-end;
+	margin-left: 500px;
 }
 .card{
 	margin:70px;

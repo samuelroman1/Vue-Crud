@@ -54,6 +54,9 @@
 	<div>
 		<div class="card">
 			<div class="card-header">Clientes
+				|<router-link to="CrearCliente" class="btn btn-success">CrearCliente</router-link> |
+							<button type="button" v-on:click="editarCliente()" class="btn btn-warning">
+										EditarCliente</button>
 			</div>
 			<div class="card_body">
 				<table class="table">
@@ -66,9 +69,7 @@
 							<th>Email</th>
 							<th>Direccion</th>
 
-							|<router-link to="CrearCliente" class="btn btn-info">CrearCliente</router-link> |
-							<button type="button" v-on:click="editarCliente()" class="btn btn-warning">
-										EditarCliente</button>
+
 						</tr>
 					</thead>
 					<tbody>
@@ -147,6 +148,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.btn-success{
+	margin-left: 600px;
+}
 .card{
 	margin:70px;
 }

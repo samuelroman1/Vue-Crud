@@ -54,6 +54,9 @@
 	<div>
 		<div class="card">
 			<div class="card-header">Departamentos
+				|<router-link to="CrearDepartamentos" class="btn btn-success">CrearDepartamento</router-link> |
+							<button type="button" v-on:click="editarDepartamento()" class="btn btn-warning">
+										EditarDepartamento</button>
 			</div>
 			<div class="card_body">
 				<table class="table">
@@ -61,9 +64,7 @@
 						<tr>
 							<th>pkDepartamento</th>
 							<th>Nombre</th>
-							|<router-link to="CrearDepartamentos" class="btn btn-info">CrearDepartamento</router-link> |
-							<button type="button" v-on:click="editarDepartamento()" class="btn btn-warning">
-										EditarDepartamento</button>
+
 						</tr>
 					</thead>
 					<tbody>
@@ -139,6 +140,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.btn-success{
+	margin-left: 80px;
+}
 .card{
 	margin:70px;
 }

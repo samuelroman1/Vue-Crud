@@ -104,16 +104,18 @@
 
                             <div class="form-group">
                                 <label for="fkEmpleado">fkEmpleado:</label>
-                                <input type="number" class="form-control" name="fkEmpleado" id="fkEmpleado"
-                                    aria-describedby="helpId" placeholder="fkEmpleado" value="" />
+								<select  class="form-control" name="fkEmpleado" id="fkEmpleado" v-model="Usuarios.fkEmpleado">
+				  <option v-for="empleado in Empleados" :value="empleado.pkEmpleado" :key="empleado.pkEmpleado">{{empleado.nombre}}</option>
+								</select>
                             </div>
                         </div>
                         <div class="col">
 
                             <div class="form-group">
                                 <label for="fkRol">fkRol:</label>
-                                <input type="number" class="form-control" name="fkRol" id="fkRol" aria-describedby="helpId"
-                                    placeholder="fkRol" value="" />
+								<select  class="form-control" name="fkRol" id="fkRol" v-model="Usuarios.fkRol">
+				  <option v-for="rol in Roles" :value="rol.pkRol" :key="rol.pkRol">{{rol.nombre}}</option>
+				  </select>
                             </div>
                         </div>
                     </div>
@@ -165,8 +167,13 @@ export default {
             smg: "",
             pkUsuario: 0,
             bad: "",
+			Empleados:[],
+			Rol:[]
         };
     },
+	created:function(){
+		this.Consultas();
+	},
     methods: {
         formulario() {
             const tiempoTranscurrido = Date.now();
@@ -219,7 +226,17 @@ export default {
             }
 
 
-        }
+        },
+		Consultas (){
+		axios.get("https://localhost:7051/Empleado").then((result) => {
+				console.log(result.data.result);
+				this.Empleados = result.data.result;
+			});
+			axios.get("https://localhost:7051/Rol").then((result) => {
+				console.log(result.data.result);
+				this.Roles = result.data.result;
+			});
+	}
 
     },
 

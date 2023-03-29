@@ -81,8 +81,9 @@
   
                 <div class="form-group">
                   <label for="fkCliente">fkCliente:</label>
-                  <input type="number" class="form-control" name="fkCliente" id="fkCliente" aria-describedby="helpId"
-                    placeholder="fkCliente" v-model="Facturas.fkCliente" />
+                  <select  class="form-control" name="cliente" id="cliente" v-model="Facturas.fkCliente">
+				  <option v-for="cliente in Clientes" :value="cliente.pkCliente" :key="cliente.pkCliente">{{cliente.nombre}}</option>
+				  </select>
                 </div>
               </div>
             </div>
@@ -127,7 +128,11 @@ export default {
     return {
       Facturas: {},
       smg: "",
+	  Clientes:[]
     };
+  },
+  created:function(){
+	this.Consultas();
   },
   methods: {
     formulario() {
@@ -152,7 +157,13 @@ export default {
         // window.location.href = "dashboard";
 
       })
-    }
+    },
+	Consultas(){
+		axios.get("https://localhost:7051/Cliente").then((result) => {
+				console.log(result.data.result);
+				this.Clientes = result.data.result;
+			});
+	}
   }
 }
 </script>

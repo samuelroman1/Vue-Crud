@@ -54,6 +54,9 @@
 	<div>
 		<div class="card">
 			<div class="card-header">Puestos
+				|<router-link to="CrearPuestos" class="btn btn-success">CrearPuesto</router-link> |
+							<button type="button" v-on:click="editarDepartamento()" class="btn btn-warning">
+										EditarPuesto</button>
 			</div>
 			<div class="card_body">
 				<table class="table">
@@ -61,9 +64,7 @@
 						<tr>
 							<th>pkPuesto</th>
 							<th>Nombre</th>
-							|<router-link to="CrearPuestos" class="btn btn-info">CrearPuesto</router-link> |
-							<button type="button" v-on:click="editarDepartamento()" class="btn btn-warning">
-										EditarPuesto</button>
+
 						</tr>
 					</thead>
 					<tbody>
@@ -121,7 +122,7 @@ export default {
 		editarDepartamento() {
 			window.location.href = "/EditarPuestos";
 		},
-		borrarDepartamento(id) {
+		borrarPuesto(id) {
 			var pregunta = window.confirm('Esta se seguro de eliminar este registro?');
 
 			if (pregunta === true) {
@@ -137,6 +138,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.btn-success{
+	margin-left: 80px;
+}
 .card{
 	margin:70px;
 }

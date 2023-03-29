@@ -54,37 +54,36 @@
 	<div>
 		<div class="card">
 			<div class="card-header">Empleados
+				<router-link to="CrearEmpleados" class="btn btn-success">CrearEmpleados</router-link> |
+							<button type="button" v-on:click="editarEmpleados()" class="btn btn-warning">
+										EditarEmpleados</button>
 			</div>
 			<div class="card_body">
 				<table class="table">
 					<thead>
 						<tr>
-							<th>PkEmpleado</th>
+							<th>Pkempleado</th>
 							<th>Nombre</th>
 							<th>Apellidos</th>
 							<th>Direccion</th>
 							<th>Ciudad</th>
-                            <th>FkPuesto</th>
-                            <th>FkDepartamento</th>
-							|<router-link to="CrearEmpleados" class="btn btn-info">CrearEmpleado</router-link> |
-							<button type="button" v-on:click="editarEmpleados()" class="btn btn-warning">
-										EditarEmpleado</button>
-
+							<th>fkPuesto</th>
+							<th>fkDepartamento</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="Empleado in Empleados" :key="Empleado.pkEmpleado">
-							<td>{{ Empleado.pkEmpleado }}</td>
-							<td>{{ Empleado.nombre }}</td>
-							<td>{{ Empleado.apellidos }}</td>
-							<td>{{ Empleado.dirreccion }}</td>
-							<td>{{ Empleado.ciudad }}</td>
-                            <td>{{ Empleado.puesto.nombre }}</td>
-                            <td>{{ Empleado.departamento.nombre }}</td>
+						<tr v-for="empleado in Empleados" :key="empleado.pkEmpleado">
+							<td>{{ empleado.pkEmpleado }}</td>
+							<td>{{ empleado.nombre }}</td>
+							<td>{{ empleado.apellidos }}</td>
+							<td>{{ empleado.dirreccion }}</td>
+							<td>{{ empleado.ciudad }}</td>
+							<td>{{ empleado.puesto.nombre }}</td>
+							<td>{{ empleado.departamento.nombre }}</td>
 							<td>
 								<div class="btn-group" role="label" aria-label=""> 
 
-									|<button type="button" v-on:click="borraDepartamento(Empleado.pkEmpleado)"
+									|<button type="button" v-on:click="borrarEmpleado(empleado.pkEmpleado)"
 										class="btn btn-danger">
 										Eliminar</button>|
 								</div>
@@ -129,25 +128,28 @@ export default {
 				this.Empleados = result.data.result;
 			});
 		},
-        editarEmpleados() {
-            window.location.href = "/EditarEmpleados";
-        },
-        borrarEmpleados(id) {
+		editarEmpleados() {
+			window.location.href = "/EditarEmpleados";
+		},
+		borrarEmpleado(id) {
             var pregunta = window.confirm('Esta se seguro de eliminar este registro?');
 
             if (pregunta === true) {
-                axios.delete("https://localhost:7051/Factura/" + id);
+                axios.delete("https://localhost:7051/Empleado/" + id);
                 window.location.href = "listarEmpleados";
 
             } else {
 
             }
-        },
+		},
 	},
 };
 </script>
 
 <style lang="scss" scoped>
+.btn-success {
+	margin-left: 600px;
+}
 .card{
 	margin:70px;
 }

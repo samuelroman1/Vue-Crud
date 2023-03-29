@@ -53,7 +53,7 @@
     </aside>
     <div class="container-fluid">
         <div class="card">
-            <div class="card-header">Actualizar Cliente</div>
+            <div class="card-header">Actualizar Facturas</div>
             <small id="helpId" class="form-text" text-muted>Mofique los apartados que desea cambiar</small>
             <div class="card-body">
                 <form v-on:submit.prevent="formulario">
@@ -105,8 +105,9 @@
 
                             <div class="form-group">
                                 <label for="fkCliente">FkCliente:</label>
-                                <input type="text" class="form-control" name="fkCliente" id="fkCliente"
-                                    aria-describedby="helpId" placeholder="fkCliente" value="" />
+								<select  class="form-control" name="fkCliente" id="fkCliente" v-model="Facturas.fkCliente">
+				  <option v-for="cliente in Clientes" :value="cliente.pkCliente" :key="cliente.pkCliente">{{cliente.nombre}}</option>
+				  </select>
                             </div>
                         </div>
                     </div>
@@ -159,7 +160,11 @@ export default {
             smg: "",
             pkFactura: 0,
             bad: "",
+            Clientes:[]
         };
+    },
+    created:function(){
+        this.Consultas();
     },
     methods: {
         formulario() {
@@ -211,6 +216,12 @@ export default {
             }
 
 
+        },
+        Consultas(){
+            axios.get("https://localhost:7051/Cliente").then((result) => {
+				console.log(result.data.result);
+				this.Clientes = result.data.result;
+			});
         }
 
     },
